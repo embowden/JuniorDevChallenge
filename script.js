@@ -1,16 +1,17 @@
 // 1. Longest Sequence
 
-longestSequence = (string) => {
-  //split the array into array of strings
-  string = string.toLowerCase();
+const longestSequence = (sequence) => {
+  //split the sequence into array of strings and remove numbers from sequence
+  sequence = sequence.toLowerCase().replace(/[0-9]/g, "");
+  console.log(sequence);
   let newArray = [];
   let letters = "";
-  for (let i = 0; i < string.length; i++) {
-    if (string[i] === string[i - 1]) {
-      letters = letters + string[i - 1];
+  for (let i = 0; i < sequence.length; i++) {
+    if (sequence[i] === sequence[i - 1]) {
+      letters = letters + sequence[i - 1];
     } else {
       newArray.push(letters);
-      letters = string[i];
+      letters = sequence[i];
     }
   }
   newArray.push(letters);
@@ -22,8 +23,7 @@ longestSequence = (string) => {
   });
   return { [longest[0]]: longest.length };
 };
-
-console.log(longestSequence("aBBBbddEEEpppl")); // {b: 4}
+console.log(longestSequence("a1233BBBbddEEEpppl")); // {b: 4}
 console.log(longestSequence("zzZzzAAAbdfAAAa")); // {z: 5}
 
 // 2. Savings Account Balance
@@ -36,7 +36,7 @@ const balance = (
   numMonths
 ) => {
   //loop for each month
-  for (i = 0; i < numMonths; i++) {
+  for (let i = 0; i < numMonths; i++) {
     //calculate the monthly interest
     let gains = openingSum * (interestRate / 100);
     // check if the opening balance is greater than the tax free limit
@@ -60,9 +60,12 @@ console.log(balance(30000, 1, 20000, 1, 5)); // 31000
 
 // 3. Recursive Reverse String
 
-const reverseString = (string) => {
-  if (string === "") return "";
-  else return reverseString(string.slice(1)) + string.charAt(0);
+const reverseString = (word) => {
+  if (word * 1 === word) {
+    return "not a string";
+  }
+  if (word === "") return "";
+  else return reverseString(word.slice(1)) + word.charAt(0);
 };
 
 // the charAt() method returns a new string consisting of the single unit
@@ -78,6 +81,7 @@ const reverseString = (string) => {
 // Could have used .substr() but it's no longer recommended
 
 console.log(reverseString("hippopotamus")); // sumatopoppih
+console.log(reverseString(12345));
 
 // 4. Time Class
 
@@ -124,7 +128,7 @@ class Time {
     };
     return `"${new Intl.DateTimeFormat("en-UK", options).format(date)}"`;
     //I have commented out the return below which will avoid the date formatting above
-    //and will return as "3:40:20" if using the example below in the console.log -- 
+    //and will return as "3:40:20" if using the example below in the console.log --
     // return `"${this.hours}:${this.minutes}:${this.seconds}"`;
   }
 }
